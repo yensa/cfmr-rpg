@@ -3,6 +3,8 @@
 import pygame
 from pygame import locals
 
+from itertools import cycle
+
 
 #TODO: Améliorer le code, limiter les fps, animer le personnage et ajouter
 # une carte comme fond
@@ -39,19 +41,30 @@ class Sprite(pygame.sprite.Sprite):
 	def getImg(self):
 		return (self.img, pygame.Rect(self.pos, (self.width, self.height)))
 
+
+class Animation(Sprite):
+	#TODO: travailler sur l'animation
+	def __init__(self, img):
+		self.imgs = img
+		self.anim = cycle(self.imgs)
+		Sprite.__init__(self, self.imgs[0])
+
+	def tick(self):
+		self.img = self.anim.next()
+
 class Perso:
 	def __init__(self, filename):
 		self.img = ImageGrid(pygame.image.load(filename).convert_alpha(), 4, 4)
 
 		self.pos = (0, 0)
 		self.movement = (0, 0)
-		self.speed = .5
+		self.speed = 1.5
 		self.moving = False
 		
-		self.up    = Sprite(self.img[12])
-		self.down  = Sprite(self.img[0])
-		self.right = Sprite(self.img[4])
-		self.left  = Sprite(self.img[8])
+		self.up    = Animation(self.img[0])
+		self.down  = Animation(self.img[12])
+		self.right = Animation(self.img[4])
+		self.left  = Animation(self.img[8])
 
 		self.sprite = self.down
 
@@ -65,14 +78,14 @@ class Perso:
 			self.sprite = self.down
 			self.sprite.set_position(*self.pos)
 			self.movement = (self.movement[0], -self.speed)
-		elif pos == 3:
-			self.sprite = self.left
-			self.sprite.set_position(*self.pos)
-			self.movement = (self.speed, self.movement[1])
 		elif pos == 2:
 			self.sprite = self.right
 			self.sprite.set_position(*self.pos)
 			self.movement = (-self.speed, self.movement[1])
+		elif pos == 3:
+			self.sprite = self.left
+			self.sprite.set_position(*self.pos)
+			self.movement = (self.speed, self.movement[1])
 	
 	def move(self):
 		if self.moving:
@@ -88,6 +101,8 @@ class Perso:
 pygame.init()
 
 screen = pygame.display.set_mode((640, 480))
+
+clock = pygame.time.Clock()
 
 p = Perso("perso.png")
 
@@ -117,5 +132,6 @@ while True:
 	screen.fill((0, 0, 0))
 	p.move()
 	screen.blit(*p.sprite.getImg())
+	clock.tick(40)
 	pygame.display.flip()
 
