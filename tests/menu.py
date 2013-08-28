@@ -11,7 +11,7 @@ fenetre = pygame.display.set_mode((640, 480))
 fond = pygame.image.load("menu_teste.jpg").convert()
 fenetre.blit(fond, (0,0))
 
-a=pygame.font.SysFont("Arial",16,True,False)
+a=pygame.font.SysFont("Arial",20,True,False)
 lancement = a.render("lancer",1,(255,255,255))
 fenetre.blit(lancement,(0,0))
 
