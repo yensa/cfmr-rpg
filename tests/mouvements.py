@@ -52,6 +52,9 @@ class Animation(Sprite):
 	def tick(self):
 		self.img = self.anim.next()
 
+	def reset(self):
+		self.img = self.imgs[0]
+
 class Perso:
 	def __init__(self, filename):
 		self.img = pygame.image.load(filename).convert_alpha()
@@ -63,7 +66,7 @@ class Perso:
 
 		h = self.img.get_height() / 4
 		w = self.img.get_width()
-		
+
 		self.up    = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 0, w, h)), 4, 1))
 		self.down  = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 3*h, w, h)), 4, 1))
 		self.right = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, h, w, h)), 4, 1))
@@ -94,8 +97,11 @@ class Perso:
 		if self.moving:
 			self.pos = (self.pos[0]+self.movement[0], self.pos[1]+self.movement[1])
 			self.sprite.set_position(*self.pos)
+			self.sprite.tick()
 	
 	def endMovement(self, p):
+		self.moving = False
+		self.sprite.reset()
 		if p in [0, 1]:
 			self.movement = (self.movement[0], 0)
 		elif p in [2, 3]:
