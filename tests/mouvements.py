@@ -54,17 +54,20 @@ class Animation(Sprite):
 
 class Perso:
 	def __init__(self, filename):
-		self.img = ImageGrid(pygame.image.load(filename).convert_alpha(), 4, 4)
+		self.img = pygame.image.load(filename).convert_alpha()
 
 		self.pos = (0, 0)
 		self.movement = (0, 0)
 		self.speed = 1.5
 		self.moving = False
+
+		h = self.img.get_height() / 4
+		w = self.img.get_width()
 		
-		self.up    = Animation(self.img[0])
-		self.down  = Animation(self.img[12])
-		self.right = Animation(self.img[4])
-		self.left  = Animation(self.img[8])
+		self.up    = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 0, w, h)), 4, 1))
+		self.down  = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 3*h, w, h)), 4, 1))
+		self.right = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, h, w, h)), 4, 1))
+		self.left  = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 2*h, w, h)), 4, 1))
 
 		self.sprite = self.down
 
