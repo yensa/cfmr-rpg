@@ -43,7 +43,6 @@ class Sprite(pygame.sprite.Sprite):
 
 
 class Animation(Sprite):
-	#TODO: travailler sur l'animation
 	def __init__(self, img, t=1):
 		self.imgs = img
 		self.anim = cycle(self.imgs)
@@ -68,15 +67,19 @@ class Perso:
 		self.speed = 1.5
 		self.moving = False
 
-		h = self.img.get_height() / 4
-		w = self.img.get_width()
+		self.h = self.img.get_height() / 4
+		self.w = self.img.get_width()
 
-		self.up    = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 0, w, h)), 4, 1), 4)
-		self.down  = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 3*h, w, h)), 4, 1), 4)
-		self.right = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, h, w, h)), 4, 1), 4)
-		self.left  = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 2*h, w, h)), 4, 1), 4)
+		self.up    = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 0, self.w, self.h)), 4, 1), 4)
+		self.down  = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 3*self.h, self.w, self.h)), 4, 1), 4)
+		self.right = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, self.h, self.w, self.h)), 4, 1), 4)
+		self.left  = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 2*self.h, self.w, self.h)), 4, 1), 4)
 
 		self.sprite = self.down
+
+	@property
+	def rect(self):
+		return pygame.Rect(self.pos, (self.w / 4, self.h))
 
 	def set(self, pos):
 		self.moving = True
@@ -97,10 +100,19 @@ class Perso:
 			self.sprite.set_position(*self.pos)
 			self.movement = (self.speed, self.movement[1])
 	
-	def move(self):
+	def move(self, bnds):
 		if self.moving:
 			self.pos = (self.pos[0]+self.movement[0], self.pos[1]+self.movement[1])
 			self.sprite.set_position(*self.pos)
+			if not bnds.contains(self.rect):
+				x, y = self.pos
+				if self.pos[0] < 0: x = 0
+				elif self.pos[0] > (bnds.width - self.rect.width): x = (bnds.width - self.rect.width)
+
+				if self.pos[1] < 0: y = 0
+				elif self.pos[1] > (bnds.height - self.rect.height): y = (bnds.height - self.rect.height)
+				self.sprite.set_position(x, y)
+				self.pos = (x, y)
 			self.sprite.tick()
 	
 	def endMovement(self, p):
@@ -143,7 +155,7 @@ while True:
 			elif k == pygame.K_UP:
 				p.endMovement(1)
 	screen.fill((0, 0, 0))
-	p.move()
+	p.move(pygame.Rect(0, 0, screen.get_width(), screen.get_height()))
 	screen.blit(*p.sprite.getImg())
 	clock.tick(40)
 	pygame.display.flip()
