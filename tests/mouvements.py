@@ -44,13 +44,17 @@ class Sprite(pygame.sprite.Sprite):
 
 class Animation(Sprite):
 	#TODO: travailler sur l'animation
-	def __init__(self, img):
+	def __init__(self, img, t=1):
 		self.imgs = img
 		self.anim = cycle(self.imgs)
 		Sprite.__init__(self, self.imgs[0])
+		self.t = t
+		self._ticks = 0
 
 	def tick(self):
-		self.img = self.anim.next()
+		self._ticks += 1
+		if self._ticks%self.t == 0:
+			self.img = self.anim.next()
 
 	def reset(self):
 		self.img = self.imgs[0]
@@ -67,10 +71,10 @@ class Perso:
 		h = self.img.get_height() / 4
 		w = self.img.get_width()
 
-		self.up    = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 0, w, h)), 4, 1))
-		self.down  = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 3*h, w, h)), 4, 1))
-		self.right = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, h, w, h)), 4, 1))
-		self.left  = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 2*h, w, h)), 4, 1))
+		self.up    = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 0, w, h)), 4, 1), 4)
+		self.down  = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 3*h, w, h)), 4, 1), 4)
+		self.right = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, h, w, h)), 4, 1), 4)
+		self.left  = Animation(ImageGrid(self.img.subsurface(pygame.Rect(0, 2*h, w, h)), 4, 1), 4)
 
 		self.sprite = self.down
 
