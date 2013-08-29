@@ -7,6 +7,9 @@ from pygame.locals import *
 
 pygame.init()
 
+pygame.mixer.music.load("menu.ogg")
+pygame.mixer.music.play()
+
 fenetre = pygame.display.set_mode((640, 480))
 fond = pygame.image.load("menu_teste.jpg").convert()
 fenetre.blit(fond, (0,0))
@@ -32,6 +35,6 @@ pygame.display.flip()
 
 while True :
     option=input(">")
-    if option == ("o") :
+    if option == ("q") :
         exit()
 
