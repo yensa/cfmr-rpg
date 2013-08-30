@@ -6,8 +6,7 @@ from pygame import locals
 from itertools import cycle
 
 
-#TODO: Améliorer le code, limiter les fps, animer le personnage et ajouter
-# une carte comme fond
+#TODO: Améliorer le code, ajouter une carte comme fond
 
 #TODO: Mettre les classes créée pour cet exemple dans des modules et les améliorer
 
