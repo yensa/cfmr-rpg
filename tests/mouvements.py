@@ -5,6 +5,8 @@ from pygame import locals
 
 from itertools import cycle
 
+from maploader import Map
+
 
 #TODO: Améliorer le code, ajouter une carte comme fond
 
@@ -115,12 +117,13 @@ class Perso:
 			self.sprite.tick()
 	
 	def endMovement(self, p):
-		self.moving = False
 		self.sprite.reset()
 		if p in [0, 1]:
 			self.movement = (self.movement[0], 0)
 		elif p in [2, 3]:
 			self.movement = (0, self.movement[1])
+		if self.movement == (0, 0):
+			self.moving = False
 
 pygame.init()
 
@@ -129,6 +132,7 @@ screen = pygame.display.set_mode((640, 480))
 clock = pygame.time.Clock()
 
 p = Perso("perso.png")
+carte = Map("village.tmx").getImage()
 
 while True:
 	for event in pygame.event.get():
@@ -154,6 +158,7 @@ while True:
 			elif k == pygame.K_UP:
 				p.endMovement(1)
 	screen.fill((0, 0, 0))
+	screen.blit(carte, (0, 0))
 	p.move(pygame.Rect(0, 0, screen.get_width(), screen.get_height()))
 	screen.blit(*p.sprite.getImg())
 	clock.tick(40)
