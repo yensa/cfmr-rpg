@@ -32,7 +32,7 @@ class Listener:
 		DISPATCHER += self
 
 class Application:
-	def __init__(self):
+	def __init__(self, max_fps = 40):
 		pygame.display.init()
 		pygame.font.init()
 		pygame.mixer.init()
@@ -40,18 +40,25 @@ class Application:
 		global DISPATCHER
 
 		self.dispatcher = DISPATCHER
+
+		self.max_fps = max_fps
+
+		self.clock = pygame.time.Clock()
 	
 	def run(self):
-		quit = True
-		while quit:
+		quit = False
+		while !quit:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					pygame.display.quit()
 					pygame.font.quit()
 					pygame.mixer.quit()
-					exit()
+					quit = True
 				elif event.type == pygame.KEYDOWN:
 					self.dispatcher("keydown", event.key)
+		self.dispatcher("draw")
+		pygame.display.flip()
+		self.clock.tick(self.max_fps)
 
 	__call__ = run
 
