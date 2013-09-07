@@ -60,7 +60,7 @@ class Application(object):
 						w.keyup(event.key, event.mod)
 				elif event.type == MOUSEBUTTONDOWN:
 					for w in self._windows:
-						w.mousebuttondownt(event.button, event.pos)
+						w.mousebuttondown(event.button, event.pos)
 				elif event.type == MOUSEBUTTONUP:
 					for w in self._windows:
 						w.mousebuttonup(event.button, event.pos)

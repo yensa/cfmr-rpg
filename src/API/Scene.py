@@ -26,10 +26,10 @@ class Scene(object):
 		for k in self._keyables:
 			k.keyup(key, mod)
 	
-	def mousebuttondown(self, button, pos):
+	def mousedown(self, button, pos):
 		for m in self._mousables:
-			m.mousebuttondown(button, pos)
+			m.mousedown(button, pos)
 	
-	def mousebuttonup(self, button, pos):
+	def mouseup(self, button, pos):
 		for m in self._mousables:
-			m.mousebuttonup(button, pos)
+			m.mouseup(button, pos)

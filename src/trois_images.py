@@ -18,9 +18,7 @@ class Test(Scene):
 
 app = Application("../resources")
 
-window = Window(config={"caption": "Hello World","icon": "C:/Users/chris/Documents/GitHub/cfmr-rpg/resources/textures/icon.png",
-                        "C:/Users/chris/Documents/GitHub/cfmr-rpg/resources/textures/drapeau.png",
-                        "C:/Users/chris/Documents/GitHub/cfmr-rpg/resources/textures/pomme.png"})
+window = Window(config={"caption": "Hello World","icon": "/home/romain/Documents/Projects/python/cfmr-rpg/resources/textures/icon.png"})
 
 app.register_window(window)
 
