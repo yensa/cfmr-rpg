@@ -12,12 +12,11 @@ import os
 
 
 class ResourceController(object):
-	"""
-		Cet objet permet de charger les resources seulement quand on
-		en a besoin
-	"""
 	def __init__(self, loader):
 		"""
+			Cet objet permet de charger les resources seulement quand on
+			en a besoin
+			
 			@param loader: La fonction permettant de charger les resource
 		"""
 		self.__dict__.update(dict(

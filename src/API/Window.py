@@ -23,6 +23,10 @@ class Window(object):
 		if config.has_key("caption"): caption = config.pop("caption")
 		else: caption = "pygame API Window"
 
+
+		"""
+			@todo: Utiliser le loader pour l'icône
+		"""
 		if config.has_key("icon"): icon = config.pop("icon")
 		else: icon = None
 
