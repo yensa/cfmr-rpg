@@ -9,10 +9,12 @@ Created on 8 sept. 2013
 import pygame
 
 from Widget import Widget
+from Container import Container
 
 
-class Frame(Widget):
+class Frame(Widget, Container):
 	def __init__(self, rect):
+		Container.__init__(self)
 		self.rect = rect
 		self._widgets = []
 

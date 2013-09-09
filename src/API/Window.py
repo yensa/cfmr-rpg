@@ -63,7 +63,7 @@ class Window(object):
 		"""
 		self._screen.fill((0, 0, 0))
 		
-		self._currentScene.draw(self._screen)
+		self._currentScene.dispatch("draw", self._screen)
 
 	def keydown(self, key, mod):
 		"""
@@ -72,7 +72,7 @@ class Window(object):
 			@param key: La touche qui vient d'être enfoncée
 			@param mod: L'éventuelle touche modificatrice enfoncée
 		"""
-		self._currentScene.keydown(key, mod)
+		self._currentScene.dispatch("keydown", key, mod)
 
 	def keyup(self, key, mod):
 		"""
@@ -81,7 +81,7 @@ class Window(object):
 			@param key: La touche qui vient d'être relevée
 			@param mod: L'éventuelle touche modificatrice enfoncée
 		"""
-		self._currentScene.keyup(key, mod)
+		self._currentScene.dispatch("keyup", key, mod)
 	
 	def mousebuttondown(self, button, pos):
 		"""
@@ -90,7 +90,7 @@ class Window(object):
 			@param button: Le bouton de la souris enfoncé
 			@param pos: La position du curseur de la souris
 		"""
-		self._currentScene.mousedown(button, pos)
+		self._currentScene.dispatch("mousedown", button, pos)
 
 	def mousebuttonup(self, button, pos):
 		"""
@@ -99,4 +99,4 @@ class Window(object):
 			@param button: Le bouton de la souris relevé
 			@param pos: La position du curseur de la souris
 		"""
-		self._currentScene.mouseup(button, pos)
+		self._currentScene.dispatch("mouseup", button, pos)

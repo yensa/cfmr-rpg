@@ -28,6 +28,3 @@ class Button(Widget):
 	def mousedown(self, button, pos):
 		if self.rect.collidepoint(pos) and button == 1:
 			self.action()
-
-	def mouseup(self, button, pos):
-		pass
