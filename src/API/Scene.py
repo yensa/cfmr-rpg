@@ -11,4 +11,5 @@ from Events import EventDispatcher
 
 class Scene(EventDispatcher):
 	def __init__(self, loader):
+		super(Scene, self).__init__()
 		self._loader = loader

@@ -22,8 +22,8 @@ class Button(Widget):
 		self.rect = pygame.draw.rect(screen, self.color, self.rect)
 		if rect is None:
 			rect = self.rect
-		screen.blit(self.text, pygame.Rect(rect.topleft, 
-										(self.text.get_width(), self.text.get_height())))
+		t = self.text.subsurface(pygame.Rect((0, 0), self.rect.size))
+		screen.blit(t, self.rect)
 
 	def mousedown(self, button, pos):
 		if self.rect.collidepoint(pos) and button == 1:

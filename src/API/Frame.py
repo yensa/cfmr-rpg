@@ -6,28 +6,15 @@ Created on 8 sept. 2013
 @author: romain
 '''
 
-import pygame
-
 from Widget import Widget
 from Container import Container
 
 
 class Frame(Widget, Container):
 	def __init__(self, rect):
-		Container.__init__(self)
-		self.rect = rect
-		self._widgets = []
-
-	def add_widget(self, d):
-		self._widgets.append(d)
+		Container.__init__(self, rect)
+		Widget.__init__(self)
 
 	def draw(self, screen, rect=None):
-		for w in self._widgets:
-			nrect = w.rect.move(self.rect.topleft)
-			if self.rect.contains(nrect):
-				w.draw_at_pos(screen, nrect)
-			else:
-				nw = max(nrect.width - (self.rect.x + self.rect.width), 0)
-				nh = max(nrect.height - (self.rect.y + self.rect.height), 0)
-				nrect = pygame.Rect(nrect.topleft, (nrect.width - nw, nrect.height - nh))
-				w.draw_at_pos(screen, nrect)
+		for w in self._objects:
+			w.draw(screen)
