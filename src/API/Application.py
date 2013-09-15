@@ -43,6 +43,16 @@ class Application(object):
 		win.set_loader(self._loader)
 		self._windows.append(win)
 
+	def get_icon(self):
+		"""
+			Recherche une icone nommée icon.png dans le loader
+		"""
+		try:
+			self._loader.preload_image(("icon", "icon.png"))
+		except:
+			return None
+		return self._loader.images.icon
+
 	def run(self):
 		"""
 			Lance la boucle principale du jeu
