@@ -14,21 +14,16 @@ class Window(object):
 
 	_loader = None
 
-	def __init__(self, config={}):
+	def __init__(self, application, config={}):
 		"""
 			Crée une fenêtre pygame.
 
 			@param config: Dictionnaire contenant la configuration de la fenêtre
 		"""
+		self.app = application
+		
 		if config.has_key("caption"): caption = config.pop("caption")
 		else: caption = "pygame API Window"
-
-
-		"""
-			@todo: Utiliser le loader pour l'icône
-		"""
-		if config.has_key("icon"): icon = config.pop("icon")
-		else: icon = None
 
 		size = config.get('size', (640, 480))
 		flags = config.get('flags', pygame.DOUBLEBUF | pygame.HWSURFACE)
@@ -37,8 +32,8 @@ class Window(object):
 		self._screen = pygame.display.set_mode(size, flags, depth)
 
 		pygame.display.set_caption(caption)
+		icon = self.app.get_icon()
 		if not icon is None:
-			icon = pygame.image.load(icon).convert_alpha()
 			pygame.display.set_icon(icon)
 
 	def set_scene(self, scene):
@@ -82,7 +77,7 @@ class Window(object):
 			@param mod: L'éventuelle touche modificatrice enfoncée
 		"""
 		self._currentScene.dispatch("keyup", key, mod)
-	
+
 	def mousebuttondown(self, button, pos):
 		"""
 			Lance l'événement mousebuttondown
