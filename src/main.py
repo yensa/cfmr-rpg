@@ -45,11 +45,8 @@ class Test(Scene):
 
 app = Application("../resources")
 
-<<<<<<< HEAD
-window = Window(config={"caption": "Hello World", "icon": "C:/Users/chris/Documents/GitHub/cfmr-rpg/resources/textures/icon.png"})
-=======
 window = Window(app, config={"caption": "Hello World"})
->>>>>>> 2ac6e1ce3a254fb099fc644e5b3f144ec979692c
+
 app.register_window(window)
 
 window.set_scene(Test)
