@@ -21,7 +21,8 @@ class Window(object):
 			@param config: Dictionnaire contenant la configuration de la fenêtre
 		"""
 		self.app = application
-		
+		self.app.register_window(self)
+
 		if config.has_key("caption"): caption = config.pop("caption")
 		else: caption = "pygame API Window"
 

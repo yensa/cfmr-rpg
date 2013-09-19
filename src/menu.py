@@ -21,7 +21,7 @@ pygame.mixer.init(44100)
 
 # Tu charge et joue la musique avant de créer la fenêtre et l'application en elle-même 
 # ce n'est pas là qu'il faut mettre ce code
-pygame.mixer.music.load("C:/Users/chris/Documents/GitHub/cfmr-rpg/resources/musique/menu.ogg")
+pygame.mixer.music.load("/home/romain/Documents/Projects/workspace/cfmr-rpg/resources/musique/menu.ogg")
 pygame.mixer.music.play(-1)
 
 
@@ -81,8 +81,7 @@ app = Application("../resources")
 
 # Il n'y a désormais plus besoin de spécifier l'icone de la fenêtre, la fenêtre cherche désormais
 # une image appellée icon.png toute seule et l'utilise comme icone autrement elle ne met pas d'icone personalisée
-window = Window(config={"caption": "nom du jeux", "icon": "C:/Users/chris/Documents/GitHub/cfmr-rpg/resources/textures/icon.png"})
-app.register_window(window)
+window = Window(app, config={"caption": "nom du jeux", "icon": "C:/Users/chris/Documents/GitHub/cfmr-rpg/resources/textures/icon.png"})
 
 window.set_scene(Test)
 
